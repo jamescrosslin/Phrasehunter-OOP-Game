@@ -21,7 +21,7 @@ document.getElementById("btn__reset").addEventListener("click", (e) => {
       return game.handleInteraction(e.target);
     }
     const matchIndex = keyValues.indexOf(e.key);
-    if (matchIndex >= 0) return game.handleInteraction(keys[matchIndex]);
+    if (matchIndex >= 0 && keys[matchIndex].disabled === false) return game.handleInteraction(keys[matchIndex]);
   }
   qwerty.addEventListener("click", selectHandler);
   window.addEventListener("keyup", selectHandler);
