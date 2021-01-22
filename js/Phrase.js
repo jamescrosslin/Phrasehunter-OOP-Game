@@ -11,11 +11,7 @@ class Phrase {
       return `<li class="${letter === " " ? "space" : "hide letter " + letter}>${letter}"</li>`;
     }
 
-    const html =
-      this.phrase.split("").reduce((phrase, letter) => {
-        return phrase + makeListItem(letter);
-      }, `<ul>`) + "</ul>";
-    console.log(html);
+    const html = this.phrase.split("").reduce((phrase, letter) => phrase + makeListItem(letter), `<ul>`) + "</ul>";
     document.getElementById("phrase").innerHTML = html;
   }
   checkLetter(letter) {
