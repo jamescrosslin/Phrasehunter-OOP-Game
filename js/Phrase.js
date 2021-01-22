@@ -8,7 +8,7 @@ class Phrase {
   }
   addPhraseToDisplay() {
     function makeListItem(letter) {
-      return `<li class="${letter === " " ? "space" : "hide letter " + letter}>${letter}"</li>`;
+      return `<li class='${letter === " " ? "space" : "hide letter " + letter}'>${letter}</li>`;
     }
 
     const html = this.phrase.split("").reduce((phrase, letter) => phrase + makeListItem(letter), `<ul>`) + "</ul>";
@@ -17,8 +17,8 @@ class Phrase {
   checkLetter(letter) {
     return this.phrase.includes(letter);
   }
-  showMatchedLetter() {
-    document.getElementsByClassName(letter).forEach((element) => {
+  showMatchedLetter(letter) {
+    [...document.getElementsByClassName(letter)].forEach((element) => {
       element.classList.remove("hide");
       element.classList.add("show");
     });

@@ -4,28 +4,30 @@
 
 class Game {
   constructor() {
-    this.phrases = [];
+    this.phrases = [new Phrase("bananas")];
     this.activePhrase = null;
     this.missed = 0;
     this.selections = [];
-    this._message = this.missed < 5 ? "You win!" : "Sorry, better luck next time!";
+    this._overlay = document.getElementById("overlay");
   }
   startGame() {
-    this.showOverlay();
+    this.showOverlay(false);
+    this.overlay.classList.remove("start");
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
   }
   getRandomPhrase() {
     return this.phrases[Math.floor(Math.random() * this.phrases.length)];
   }
-  handleInteraction(e) {
-    const selection = e.target;
+  handleInteraction(element) {
+    const selection = element;
+    const letter = selection.innerHTML;
     selection.disabled = true;
     this.selections.push(selection);
 
-    if (this.activePhrase.includes(selection)) {
-      selection.classList.add(chosen);
-      this.activePhrase.showMatchedLetter();
+    if (this.activePhrase.checkLetter(letter)) {
+      selection.classList.add("chosen");
+      this.activePhrase.showMatchedLetter(letter);
       if (this.checkForWin()) this.gameOver();
     } else {
       selection.classList.add("wrong");
@@ -33,24 +35,27 @@ class Game {
     }
   }
   removeLife() {
-    document.getElementsByClassName("tries")[this.missed].setAttribute("src", "images/lostHeart.png");
+    document.getElementsByClassName("tries")[this.missed].firstElementChild.setAttribute("src", "images/lostHeart.png");
     this.missed++;
     if (this.missed === 5) this.gameOver();
   }
   checkForWin() {
-    const phrase = this.activePhrase.split(" ");
-    return phrase === phrase.filter((letter) => this.selections.includes(letter));
+    const phrase = this.activePhrase.phrase.replace(" ", "").split("");
+    const selections = this.selections.map((selection) => selection.innerHTML);
+    const check = phrase.join("") === phrase.filter((letter) => selections.includes(letter)).join("");
+    return check;
   }
-  gameOver(win) {
-    this.showOverlay(show);
-    document.getElementById("game-over-message").innerHTML = this.message;
+  gameOver() {
+    const win = this.missed < 5;
+    this.showOverlay();
+    this.overlay.classList.toggle("win", win);
+    this.overlay.classList.toggle("lose", !win);
+    document.getElementById("game-over-message").innerHTML = win ? "You win!" : "Sorry, better luck next time!";
   }
-  showOverlay(show) {
-    const overlay = document.getElementById("overlay");
-    overlay.style.display = show ? "inherit" : "none";
-    overlay.classList.replace("start", show ? "win" : "lose");
+  showOverlay(show = true) {
+    this.overlay.style.display = show ? "inherit" : "none";
   }
-  get message() {
-    return this._message;
+  get overlay() {
+    return this._overlay;
   }
 }
