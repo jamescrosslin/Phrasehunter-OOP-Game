@@ -8,7 +8,9 @@ class Phrase {
   }
   addPhraseToDisplay() {
     function makeListItem(letter) {
-      return `<li class='${/['"&()@!,:;\.$%\\\s]/.test(letter) ? "space" : "hide letter " + letter}'>${letter}</li>`;
+      //will need to make a more complex if/else statement here to handle
+      //creating containing elements so long phrases are not split up
+      return `<li class='${/[^a-z]/.test(letter) ? "space" : "hide letter " + letter}'>${letter}</li>`;
     }
 
     const html = this.phrase.split("").reduce((phrase, letter) => phrase + makeListItem(letter), `<ul>`) + "</ul>";

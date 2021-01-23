@@ -42,7 +42,7 @@ class Game {
     if (this.missed === 5) this.gameOver();
   }
   checkForWin() {
-    const phrase = this.activePhrase.phrase.replaceAll(/['"&()@!,:;\.$%\\\s]/g, "").split("");
+    const phrase = this.activePhrase.phrase.replaceAll(/[^a-z]/g, "").split("");
     const selections = this.selections.map((selection) => selection.innerHTML);
     const check = phrase.join("") === phrase.filter((letter) => selections.includes(letter)).join("");
     return check;
