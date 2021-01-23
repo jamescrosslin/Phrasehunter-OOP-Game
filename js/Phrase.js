@@ -8,7 +8,7 @@ class Phrase {
   }
   addPhraseToDisplay() {
     function makeListItem(letter) {
-      return `<li class='${letter === " " ? "space" : "hide letter " + letter}'>${letter}</li>`;
+      return `<li class='${/['"&()@!,:;\.$%\\\s]/.test(letter) ? "space" : "hide letter " + letter}'>${letter}</li>`;
     }
 
     const html = this.phrase.split("").reduce((phrase, letter) => phrase + makeListItem(letter), `<ul>`) + "</ul>";

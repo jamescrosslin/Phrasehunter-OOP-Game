@@ -4,14 +4,16 @@
 
 class Game {
   constructor() {
-    this.phrases = [new Phrase("bananas")];
+    this.phrases = [];
     this.activePhrase = null;
     this.missed = 0;
     this.selections = [];
     this._overlay = document.getElementById("overlay");
+    this._lifeTracker = document.getElementsByClassName("tries");
   }
   startGame() {
     this.showOverlay(false);
+    [...this.tries].forEach((icon) => icon.firstElementChild.setAttribute("src", "images/liveHeart.png"));
     this.overlay.classList.remove("start");
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
@@ -35,12 +37,12 @@ class Game {
     }
   }
   removeLife() {
-    document.getElementsByClassName("tries")[this.missed].firstElementChild.setAttribute("src", "images/lostHeart.png");
+    this.tries[this.missed].firstElementChild.setAttribute("src", "images/lostHeart.png");
     this.missed++;
     if (this.missed === 5) this.gameOver();
   }
   checkForWin() {
-    const phrase = this.activePhrase.phrase.replace(" ", "").split("");
+    const phrase = this.activePhrase.phrase.replaceAll(/['"&()@!,:;\.$%\\\s]/g, "").split("");
     const selections = this.selections.map((selection) => selection.innerHTML);
     const check = phrase.join("") === phrase.filter((letter) => selections.includes(letter)).join("");
     return check;
@@ -57,5 +59,8 @@ class Game {
   }
   get overlay() {
     return this._overlay;
+  }
+  get tries() {
+    return this._lifeTracker;
   }
 }
