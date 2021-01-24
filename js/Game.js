@@ -19,7 +19,8 @@ class Game {
     this.activePhrase.addPhraseToDisplay();
   }
   getRandomPhrase() {
-    return this.phrases[Math.floor(Math.random() * this.phrases.length)];
+    const rando = Math.floor(Math.random() * this.phrases.length);
+    return this.phrases.splice(rando, rando + 1)[0];
   }
   handleInteraction(element) {
     const selection = element;

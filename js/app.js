@@ -5,6 +5,10 @@ let game;
 const keys = document.getElementsByClassName("key");
 const keyValues = [...keys].map((key) => key.innerHTML);
 
+function addPhrase(phrase) {
+  game.phrases.push(new Phrase(phrase));
+}
+
 document.getElementById("btn__reset").addEventListener("click", (e) => {
   document.getElementById("phrase").innerHTML = "";
   [...document.getElementsByClassName("key")].forEach((key) => {
@@ -12,7 +16,18 @@ document.getElementById("btn__reset").addEventListener("click", (e) => {
     key.disabled = false;
   });
   game = new Game();
+  addPhrase("no man is an island");
+  addPhrase("i have a dream");
+  addPhrase("time makes fools of us all");
+  addPhrase("that's bulgogi for you");
+  addPhrase("sdafdsafsdafsdfs sdfsdfasdfsdf asdfsdfasdfasdfasd");
   game.startGame();
+  [...document.getElementsByClassName("letter")].forEach((letter, i) => {
+    letter.style.animationDelay = `${i * 0.05}s`;
+    letter.addEventListener("animationend", (e) => {
+      e.target.classList.remove("animated");
+    });
+  });
 });
 (() => {
   const qwerty = document.getElementById("qwerty");

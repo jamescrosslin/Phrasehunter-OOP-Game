@@ -8,11 +8,11 @@ class Phrase {
   }
   addPhraseToDisplay() {
     function makeListItem(letter) {
-      //will need to make a more complex if/else statement here to handle
-      //creating containing elements so long phrases are not split up
-      return `<li class='${/[^a-z]/.test(letter) ? "space" : "hide letter " + letter}'>${letter}</li>`;
+      const isLetter = /[a-z]/i.test(letter);
+      return `${isLetter ? "<" : "</div><"}li class='${
+        isLetter ? "hide letter animated fadeInDownBig " + letter : "space"
+      }'>${letter}</li${isLetter ? ">" : "><div>"}`;
     }
-
     const html = this.phrase.split("").reduce((phrase, letter) => phrase + makeListItem(letter), `<ul>`) + "</ul>";
     document.getElementById("phrase").innerHTML = html;
   }

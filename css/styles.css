@@ -32,7 +32,8 @@ body {
 
 li,
 ol,
-ul {
+ul,
+ul div {
   padding: 0;
   display: inline-block;
 }
@@ -81,7 +82,7 @@ button {
   padding: 10px;
 }
 
-#phrase ul li {
+#phrase ul div li {
   margin-top: 15px;
 }
 
