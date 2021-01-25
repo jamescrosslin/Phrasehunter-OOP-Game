@@ -4,10 +4,17 @@
 
 class Game {
   constructor() {
-    this.phrases = [];
+    this.phrases = [
+      new Phrase("Time makes fools of us all."),
+      new Phrase("Raise your hand if you've ever been personally victimized by Regina George."),
+      new Phrase("Time makes fools of us all."),
+      new Phrase("Time makes fools of us all."),
+      new Phrase("Time makes fools of us all."),
+    ];
     this.activePhrase = null;
     this.missed = 0;
     this.selections = [];
+    this.active = true;
     this._overlay = document.getElementById("overlay");
     this._lifeTracker = document.getElementsByClassName("tries");
   }
@@ -20,20 +27,18 @@ class Game {
   }
   getRandomPhrase() {
     const rando = Math.floor(Math.random() * this.phrases.length);
-    return this.phrases.splice(rando, rando + 1)[0];
+    return this.phrases[rando];
   }
   handleInteraction(element) {
-    const selection = element;
-    const letter = selection.innerHTML;
-    selection.disabled = true;
-    this.selections.push(selection);
-
+    const letter = element.innerHTML;
+    element.disabled = true;
+    this.selections.push(letter);
     if (this.activePhrase.checkLetter(letter)) {
-      selection.classList.add("chosen");
+      element.classList.add("chosen");
       this.activePhrase.showMatchedLetter(letter);
       if (this.checkForWin()) this.gameOver();
     } else {
-      selection.classList.add("wrong");
+      element.classList.add("wrong");
       this.removeLife();
     }
   }
@@ -43,17 +48,19 @@ class Game {
     if (this.missed === 5) this.gameOver();
   }
   checkForWin() {
-    const phrase = this.activePhrase.phrase.replaceAll(/[^a-z]/g, "").split("");
-    const selections = this.selections.map((selection) => selection.innerHTML);
-    const check = phrase.join("") === phrase.filter((letter) => selections.includes(letter)).join("");
-    return check;
+    const phrase = this.activePhrase.normalized.split("");
+    return phrase.every((letter) => this.selections.includes(letter));
   }
   gameOver() {
     const win = this.missed < 5;
     this.showOverlay();
     this.overlay.classList.toggle("win", win);
     this.overlay.classList.toggle("lose", !win);
-    document.getElementById("game-over-message").innerHTML = win ? "You win!" : "Sorry, better luck next time!";
+    document.getElementById("game-over-message").innerHTML = win
+      ? "You win!"
+      : `Sorry, the correct answer was <em>"${this.activePhrase.phrase}"</em>.<br>
+      Better luck next time!`;
+    this.active = false;
   }
   showOverlay(show = true) {
     this.overlay.style.display = show ? "inherit" : "none";
