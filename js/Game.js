@@ -5,11 +5,11 @@
 class Game {
   constructor() {
     this.phrases = [
-      new Phrase("Time makes fools of us all."),
+      new Phrase("It's just a flesh wound!"),
       new Phrase("Raise your hand if you've ever been personally victimized by Regina George."),
-      new Phrase("Time makes fools of us all."),
-      new Phrase("Time makes fools of us all."),
-      new Phrase("Time makes fools of us all."),
+      new Phrase("Yeah, well, you know, that's just like, your opinion, man."),
+      new Phrase("The quick brown fox jumps over the lazy dog."),
+      new Phrase("What is this? A center for ants?"),
     ];
     this.activePhrase = null;
     this.missed = 0;
@@ -24,6 +24,10 @@ class Game {
     this.overlay.classList.remove("start");
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
+    [...this.activePhrase.letters].forEach((letter) => {
+      letter.style.animationDelay = `${Math.random()}s`;
+      animate(letter, "fadeInDownBig");
+    });
   }
   getRandomPhrase() {
     const rando = Math.floor(Math.random() * this.phrases.length);
@@ -43,7 +47,8 @@ class Game {
     }
   }
   removeLife() {
-    this.tries[this.missed].firstElementChild.setAttribute("src", "images/lostHeart.png");
+    //animate hearts with throbbing or something
+    this.tries[this.missed].firstElementChild.setAttribute("src", "images/lostHeart.png").bind(this);
     this.missed++;
     if (this.missed === 5) this.gameOver();
   }
@@ -53,15 +58,21 @@ class Game {
   }
   gameOver() {
     const win = this.missed < 5;
-    this.showOverlay();
     this.overlay.classList.toggle("win", win);
     this.overlay.classList.toggle("lose", !win);
     document.getElementById("game-over-message").innerHTML = win
       ? "You win!"
-      : `Sorry, the correct answer was <em>"${this.activePhrase.phrase}"</em>.<br>
+      : `Sorry, the correct answer was "${this.activePhrase.phrase}"<br>
       Better luck next time!`;
     this.active = false;
+    this.activePhrase.container.innerHTML = "";
+    [...document.getElementsByClassName("key")].forEach((key) => {
+      key.className = "key";
+      key.disabled = false;
+    });
+    this.showOverlay();
   }
+
   showOverlay(show = true) {
     this.overlay.style.display = show ? "inherit" : "none";
   }

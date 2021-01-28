@@ -11,7 +11,7 @@
   --color-neutral-light: #d2d2d2;
   --color-keys: #37474f;
   --color-keys-light: #e5e5e5;
-  --font-size-large: 60px;
+  --font-size-large: 75px;
   --font-size-medium: 20px;
   --transition: all 0.2s ease-in-out;
 }
@@ -28,6 +28,10 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background-color: #a2ceeb;
+  background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
+
+  background-size: contain;
 }
 
 li,
@@ -38,25 +42,25 @@ ul div {
   display: inline-block;
 }
 
-h2 {
-  margin: 0;
+h1 {
+  margin: 10px;
   text-transform: uppercase;
   font-size: var(--font-size-large);
-  margin: 0;
 }
 
-h1 {
+h2 {
   font-size: 30px;
+  margin: 8px;
 }
 
 button {
   margin: 6px;
-  border: 1px solid transparent;
+  border: 3px outset darkgray;
   padding: 0.5rem 1rem;
   color: var(--color-keys);
   font-size: var(--font-size-medium);
   background-color: var(--color-keys-light);
-  border-radius: 5px;
+  border-radius: 10px;
   -webkit-transition: var(--transition);
   -o-transition: var(--transition);
   transition: var(--transition);
@@ -82,10 +86,6 @@ button {
   padding: 10px;
 }
 
-#phrase ul div li {
-  margin-top: 15px;
-}
-
 /* Title */
 
 .header {
@@ -94,31 +94,39 @@ button {
 
 /* Phrase */
 
+#phrase ul div li {
+  margin-top: 15px;
+}
+#phrase ul div {
+  position: relative;
+}
+
 .letter {
   font-size: var(--font-size-medium);
   height: 65px;
   width: 65px;
   padding: 20px 1px 0 1px;
-  margin-right: 2px;
+  margin-right: 6px;
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3), 1px 2px 2px rgba(0, 0, 0, 0.3), 1px 3px 3px rgba(0, 0, 0, 0.3);
 }
 
-.space {
+.space,
+.punctuation {
   width: 25px;
+}
+
+.punctuation {
   font-size: var(--font-size-large);
+  position: absolute;
+  bottom: -6px;
 }
 
 .show {
   color: #fff;
   background-color: #4ac0d5;
-  font-size: 20px;
-  height: 65px;
-  width: 65px;
-  padding: 20px 1px 0 1px;
-  margin-right: 2px;
-  border-radius: 5px;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
 }
@@ -132,8 +140,6 @@ button {
 
 .chosen {
   background: #3a3f58;
-  border-radius: 5px;
-  font-size: var(--font-size-medium);
   color: #ffffff;
 }
 
