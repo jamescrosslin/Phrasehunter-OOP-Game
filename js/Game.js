@@ -18,21 +18,33 @@ class Game {
     this._overlay = document.getElementById("overlay");
     this._lifeTracker = document.getElementsByClassName("tries");
   }
+  /**
+   * @method startGame
+   * @description resets and initializes the game, hides the overlay, set hearts to full, and animates the phrase's intro
+   */
   startGame() {
     this.showOverlay(false);
-    [...this.tries].forEach((icon) => icon.firstElementChild.setAttribute("src", "images/liveHeart.png"));
     this.overlay.classList.remove("start");
+
     this.activePhrase = this.getRandomPhrase();
+
     this.activePhrase.addPhraseToDisplay();
     [...this.activePhrase.letters].forEach((letter) => {
       letter.style.animationDelay = `${Math.random()}s`;
       animate(letter, "fadeInDownBig");
     });
+    [...this.tries].forEach((icon) => (icon.firstElementChild.style.filter = "drop-shadow(0 0 3px purple)"));
   }
+
   getRandomPhrase() {
-    const rando = Math.floor(Math.random() * this.phrases.length);
-    return this.phrases[rando];
+    return this.phrases[Math.floor(Math.random() * this.phrases.length)];
   }
+
+  /**
+   * @method handleInteraction
+   * @param {element} element
+   * @description letter selections are handled by receiving the element corresponding to the letter and changes the game state to reflect user selection
+   */
   handleInteraction(element) {
     const letter = element.innerHTML;
     element.disabled = true;
@@ -46,16 +58,30 @@ class Game {
       this.removeLife();
     }
   }
+
   removeLife() {
-    //animate hearts with throbbing or something
-    this.tries[this.missed].firstElementChild.setAttribute("src", "images/lostHeart.png").bind(this);
-    this.missed++;
-    if (this.missed === 5) this.gameOver();
+    /**
+     * @callback handleLoss
+     * @description changes the left most full life to a lost life, decrements the missed count, and checks for a game over
+     */
+    const handleLoss = () => {
+      this.tries[this.missed].firstElementChild.setAttribute("src", "images/lostHeart.png");
+      this.missed++;
+      if (this.missed === 5) this.gameOver();
+    };
+
+    animate(this.tries[this.missed].firstElementChild, "flash", handleLoss);
   }
+
   checkForWin() {
     const phrase = this.activePhrase.normalized.split("");
     return phrase.every((letter) => this.selections.includes(letter));
   }
+
+  /**
+   * @method gameOver
+   * @description handles a game over scenario with different outcomes depending on win or loss
+   */
   gameOver() {
     const win = this.missed < 5;
     this.overlay.classList.toggle("win", win);
@@ -64,12 +90,21 @@ class Game {
       ? "You win!"
       : `Sorry, the correct answer was "${this.activePhrase.phrase}"<br>
       Better luck next time!`;
-    this.active = false;
-    this.activePhrase.container.innerHTML = "";
+    this.resetGame();
+  }
+  /**
+   * @method resetGame
+   * @description resets the board and game object to their previous state in order to stop further interaction after a win scenario and stop animation conflicts
+   */
+  resetGame() {
+    [...this.tries].forEach((icon) => (icon.firstElementChild.style.filter = "none"));
+    [...this.tries].forEach((icon) => icon.firstElementChild.setAttribute("src", "images/liveHeart.png"));
     [...document.getElementsByClassName("key")].forEach((key) => {
       key.className = "key";
       key.disabled = false;
     });
+    this.activePhrase.container.innerHTML = "";
+    this.active = false;
     this.showOverlay();
   }
 

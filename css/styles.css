@@ -28,9 +28,8 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
-  background-color: #a2ceeb;
-  background-image: url("https://www.transparenttextures.com/patterns/concrete-wall-2.png");
-
+  background-color: #e6e0ff;
+  background-image: url("https://www.transparenttextures.com/patterns/transparent-square-tiles.png");
   background-size: contain;
 }
 
@@ -89,7 +88,7 @@ button {
 /* Title */
 
 .header {
-  color: #3a3f58;
+  color: #220d5c;
 }
 
 /* Phrase */
