@@ -25,10 +25,9 @@ class Game {
   startGame() {
     this.showOverlay(false);
     this.overlay.classList.remove("start");
-
     this.activePhrase = this.getRandomPhrase();
-
     this.activePhrase.addPhraseToDisplay();
+    // loop adds animation to the letters with a random delay between 0 and 1 second
     [...this.activePhrase.letters].forEach((letter) => {
       letter.style.animationDelay = `${Math.random()}s`;
       animate(letter, "fadeInDownBig");
@@ -69,7 +68,7 @@ class Game {
       this.missed++;
       if (this.missed === 5) this.gameOver();
     };
-
+    // adds a small flash animation to the leftmost full life heard and handles the callback at the end of the animation
     animate(this.tries[this.missed].firstElementChild, "flash", handleLoss);
   }
 

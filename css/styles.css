@@ -28,6 +28,7 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  /* changed the background image and color */
   background-color: #e6e0ff;
   background-image: url("https://www.transparenttextures.com/patterns/transparent-square-tiles.png");
   background-size: contain;
@@ -109,6 +110,7 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  /* added box shadow to make it pop */
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3), 1px 2px 2px rgba(0, 0, 0, 0.3), 1px 3px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -117,17 +119,18 @@ button {
   width: 25px;
 }
 
-.punctuation {
-  font-size: var(--font-size-large);
-  position: absolute;
-  bottom: -6px;
-}
-
 .show {
   color: #fff;
   background-color: #4ac0d5;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
+}
+
+/* created class to handle punctionation text and align it with the letter list items */
+.punctuation {
+  font-size: var(--font-size-large);
+  position: absolute;
+  bottom: -6px;
 }
 
 /* Keyboard */
