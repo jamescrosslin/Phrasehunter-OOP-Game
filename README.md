@@ -11,3 +11,12 @@ A non-standard color palette and background image spice up the interface, and te
 
 Animations
 Each letter of the phrase drops in individually after a random delay between 0 and 1 second. When a player misses a selection, their life heart flashes twice before changing to an empty heart.
+
+This project utilizes Animate.css
+
+animate.css -http://daneden.me/animate.
+Version - 3.6.0
+Licensed under the MIT license - http://opensource.org/licenses/MIT
+Copyright (c) 2018 Daniel Eden
+
+This project uses a template from https://www.transparenttextures.com.
