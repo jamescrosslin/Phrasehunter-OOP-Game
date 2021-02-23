@@ -32,7 +32,7 @@ class Game {
       letter.style.animationDelay = `${Math.random()}s`;
       animate(letter, "fadeInDownBig");
     });
-    [...this.tries].forEach((icon) => (icon.firstElementChild.style.filter = "drop-shadow(0 0 3px purple)"));
+    [...this.tries].forEach((icon) => (icon.firstElementChild.style.filter = "drop-shadow(0 0 3px #E9D985)"));
   }
 
   getRandomPhrase() {

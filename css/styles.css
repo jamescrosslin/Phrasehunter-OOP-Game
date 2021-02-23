@@ -7,10 +7,12 @@
   --color-win: #78cf82;
   --color-lose: #d94545;
   --color-start: #5b85b7;
-  --color-neutral: #445069;
-  --color-neutral-light: #d2d2d2;
-  --color-keys: #37474f;
-  --color-keys-light: #e5e5e5;
+  --color-text-dark: #222e50;
+  --color-text-light: #fdfcdc;
+  --color-correct: #439a86;
+  --color-wrong: #bcd8c1;
+  --color-primary: #222e50;
+  --color-keys-light: #fdfcdc;
   --font-size-large: 75px;
   --font-size-medium: 20px;
   --transition: all 0.2s ease-in-out;
@@ -29,7 +31,7 @@ body {
   display: flex;
   height: 100vh;
   /* changed the background image and color */
-  background-color: #e6e0ff;
+  background-color: var(--color-primary);
   background-image: url("https://www.transparenttextures.com/patterns/transparent-square-tiles.png");
   background-size: contain;
 }
@@ -57,7 +59,7 @@ button {
   margin: 6px;
   border: 3px outset darkgray;
   padding: 0.5rem 1rem;
-  color: var(--color-keys);
+  color: var(--color-text-dark);
   font-size: var(--font-size-medium);
   background-color: var(--color-keys-light);
   border-radius: 10px;
@@ -89,7 +91,7 @@ button {
 /* Title */
 
 .header {
-  color: #220d5c;
+  color: var(--color-text-light);
 }
 
 /* Phrase */
@@ -108,7 +110,7 @@ button {
   padding: 20px 1px 0 1px;
   margin-right: 6px;
   color: transparent;
-  background: var(--color-neutral-light);
+  background: var(--color-wrong);
   border-radius: 5px;
   /* added box shadow to make it pop */
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3), 1px 2px 2px rgba(0, 0, 0, 0.3), 1px 3px 3px rgba(0, 0, 0, 0.3);
@@ -117,11 +119,12 @@ button {
 .space,
 .punctuation {
   width: 25px;
+  color: var(--color-text-light);
 }
 
 .show {
-  color: #fff;
-  background-color: #4ac0d5;
+  color: var(--color-text-light);
+  background-color: var(--color-correct);
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
 }
@@ -141,12 +144,12 @@ button {
 }
 
 .chosen {
-  background: #3a3f58;
+  background: var(--color-correct);
   color: #ffffff;
 }
 
 .wrong {
-  background: #f7a964;
+  background: var(--color-wrong);
   color: #ffffff;
 }
 
